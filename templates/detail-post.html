@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="text-align: center; ">
+        <p>Title: {{ post.title }}</p>
+        <p><img src="{{ post.image.url }}" alt=""></p>
+        <p>Description: {{ post.description }}</p>
+        <p>hashtags: {{ post.hashtags }}</p>
+
+        <div>
+            <form action="/blog/create_comment/{{ post.id }}/" method="post">
+                {% csrf_token %}
+                <input type ="text" name="text"/>
+                <input type="submit">
+            </form>
+        </div>
+
+        <div>
+            <h3>Comments:</h3>
+            <ul style="list-style: none">
+                {% for  i in comments %}
+                    <li>
+                        <div>
+                            <p>
+                                {{ i.text }}
+                            </p>
+                            <span>
+                              {{ i.datetime }}
+                            </span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
