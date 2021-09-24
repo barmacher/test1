@@ -6,19 +6,22 @@ from .models import Blog
 
 class BlogForm(forms.Form):
     title = forms.CharField(max_length=100)
-    description = forms.CharField()
-    hashtags = forms.CharField()
+    image = forms.ImageField(required=True)
+    description = forms.CharField(max_length=1000)
+    hashtags = forms.CharField(max_length=100)
+
 
 
 class BlogSerializer(serializers.ModelSerializer):
-
-
+    class Meta:
         model = Blog
-        id = serializers.IntegerField(required=True)
-        image = serializers.ImageField(required=True)
-        tittle = serializers.CharField(required=True)
-        description = serializers.CharField(required=True)
-        hashtags = serializers.CharField(required=True)
+        fields = [
+            "id",
+            "image",
+            "title",
+            "description",
+            "hashtags"
+        ]
         # def validate(self,attrs):
 
 

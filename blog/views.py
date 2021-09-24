@@ -11,7 +11,7 @@ from rest_framework.generics import ListAPIView
 # Create your views here.
 from django.shortcuts import render, redirect
 
-from .forms import BlogSerializer
+from .forms import BlogSerializer, BlogForm
 from .models import Student, Blog, Comment
 
 
@@ -65,15 +65,16 @@ def student_view(request):
 
 def create_post(request):
     if request.method == "POST":
-        form = request.POST
-        title = form['title']
-        description = form['description']
-        hashtag = form['hashtag']
-        image = request.FILES['image']
-        Blog.objects.create(title=title, description=description, hashtags=hashtag, image=image)
+        data = {
+            "title" : request.POST['title'],
+            "image" : request.FILES['image'],
+            "description" : request.POST['description'],
+            "hashtags" : request.POST['hashtags'],
+        }
+        Blog.objects.create(**data)
         return redirect("/blog/")
     if request.method == "GET":
-        return render(request, "create-post.html")
+        return render(request, "create-post.html", context={"forms": BlogForm})
 
 
 

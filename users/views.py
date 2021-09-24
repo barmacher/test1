@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -44,3 +44,7 @@ def login_view(request):
 
 class MyLoginView(LoginView):
     template_name = 'login.html'
+
+def logout_views(request):
+    logout(request)
+    return redirect('blogs')

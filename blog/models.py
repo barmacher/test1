@@ -20,6 +20,8 @@ class Blog(models.Model):
 
 
 class Comment(models.Model):
+    class Meta:
+        ordering = ['-datetime']
     text = models.TextField()
     datetime = models.DateTimeField(auto_now=True)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
